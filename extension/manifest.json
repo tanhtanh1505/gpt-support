@@ -2,7 +2,7 @@
   "name": "GPT Support",
   "version": "1.0.0",
   "description": "GPT Support",
-  "permissions": ["tabs", "host_permissions", "windows", "activeTab"],
+  "permissions": ["tabs", "windows", "activeTab"],
   "host_permissions": ["*://*/*"],
   "background": {
     "service_worker": "background.js"

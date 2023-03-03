@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener((obj, sender, response) => {
   if (type === "SUPPORT") {
     //Send data to your web here
     chrome.windows.create({
-      url: `https://www.google.com/search?q=${text}`,
+      url: `http://localhost:8080?text=${text}`,
       type: "popup",
       width: 500,
       height: 500,
