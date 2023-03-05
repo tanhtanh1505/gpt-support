@@ -1,17 +1,25 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { getSolution } = require("./services/chatgpt");
+require("./database/index");
+const AppError = require("./utils/ExpressError");
+
+const questionRoutes = require("./routes/question");
 
 const app = express();
+
 app.use(cors());
 
-app.get("/", async (req, res) => {
-  const text = req.query.text;
-  const solution = await getSolution(text);
-  // console.log(solution);
-  res.send(solution);
+app.use("/question", questionRoutes);
+
+app.all("*", (req, res, next) => {
+  next(new AppError("Page not found", 404));
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Error" } = err;
+  res.status(status).send(message);
 });
 
 const port = process.env.PORT || 8000;
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Listening on port ${port}!`));

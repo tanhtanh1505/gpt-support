@@ -12,5 +12,5 @@ module.exports.getSolution = async (text) => {
     prompt: text,
     max_tokens: 2048,
   });
-  return completion.data.choices[0].text;
+  return completion.data.choices[0].text.trim();
 };
