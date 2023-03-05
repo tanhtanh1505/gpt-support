@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors());
 
-app.use("/question", questionRoutes);
+app.use("/gpt-support/question", questionRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError("Page not found", 404));
