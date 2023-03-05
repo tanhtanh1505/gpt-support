@@ -1,0 +1,26 @@
+.item-wrapper {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  border-bottom: 1px solid #575757;
+  cursor: pointer;
+}
+
+.item-wrapper:nth-child(even) {
+    background-color: #494B60;
+}
+
+.item-wrapper:hover {
+    background-color: #6d6e7e;
+}
+
+.item-query {
+    color: white;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden !important;
+  
+  }

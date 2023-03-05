@@ -1,38 +1,120 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: Inter;
+  src: url(./asset/font/Inter-Regular.ttf);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: Inter;
+  src: url(./asset/font/Inter-Bold.ttf);
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.heading {
   color: white;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.regular {
+  color: white;
+  line-height: 24px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.wrapper {
+  max-width: 500px;
+  min-height: 500px;
+  width: 50%;
+  background-color: #343541;
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Inter';
+}
+
+.tab {
+  background-color: #494B60;
+}
+
+.tab button {
+  width: 50%;
+  height: 41px;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Inter';
+  color: white;
+  font-size: 14px;
+  line-height: 17px;
+  opacity: 0.75;
+  border-bottom: rgba(217, 217, 217, 0.25) solid 2px;
+}
+
+/* .tab button:hover {
+  background-color: rgba(217, 217, 217, 0.25);
+  opacity: 1;
+  border-bottom: #d9d9d9 solid 2px;
+} */
+
+.tab button.active {
+  background-color: rgba(217, 217, 217, 0.25);
+  opacity: 1;
+  border-bottom: #d9d9d9 solid 2px;
+}
+
+.tabcontent {
+  display: none;
+}
+
+.inputbox {
+  height: 37px;
+  background-color: #494B60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 13px;
+}
+
+.inputbox input {
+  width: 92%;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.inputbox input:focus {
+  border: none;
+  outline: none;
+}
+
+.answer {
+  padding: 10px 13px;
+
+}
+
+.language {
+  display: flex;
+}
+
+.language-button {
+  width: 18px;
+  height: 18px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Inter';
+  font-size: 10px;
+  line-height: 12px;
+  padding: 0;
+  color: white;
+  background-color: transparent;
+}
+
+.language-button.active {
+  background: #d9d9d9;
+  color: black;
+  border-radius: 4px;
 }
