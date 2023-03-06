@@ -1,7 +1,7 @@
 cd ../client
 npm run build
 
-cp -r build ../server/public
+cp -r build ../server/
 
 cd ../server
 
