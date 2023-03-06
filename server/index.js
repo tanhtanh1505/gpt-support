@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 require("./database/index");
 const AppError = require("./utils/ExpressError");
@@ -11,6 +12,12 @@ const app = express();
 app.use(cors());
 
 app.use("/gpt-support/question", questionRoutes);
+
+app.use(express.static(path.resolve(__dirname, "./public")));
+
+app.get("*", function (req, res) {
+  res.sendFile(path.resolve(__dirname, "./public", "index.html"));
+});
 
 app.all("*", (req, res, next) => {
   next(new AppError("Page not found", 404));

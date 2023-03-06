@@ -1,3 +1,10 @@
+cd ../client
+npm run build
+
+cp -r build ../server/public
+
+cd ../server
+
 docker compose up -d
 
 if [ -f gpt-support-server-prod.tar ]; then

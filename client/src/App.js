@@ -43,6 +43,7 @@ function App() {
   const [answer, setAnswer] = useState("");
 
   function querySubmit() {
+    console.log(query);
     fetch(`https://woparadise.tech/gpt-support/question?q=${query}`).then((res) => {
       res.json().then((data) => {
         console.log(data);
