@@ -1,5 +1,6 @@
 .item-wrapper {
   height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,10 +18,9 @@
 }
 
 .item-query {
-    color: white;
-    line-height: 24px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden !important;
-  
-  }
+  color: white;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden !important;
+}
