@@ -7,8 +7,6 @@ import { trackPromise } from "react-promise-tracker";
 import HistoryItem from "./component/HistoryItem";
 import LoadingIndicator from "./component/LoadingIndicator"
 
-
-
 function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const question = queryParams.get("q") || "";
@@ -115,7 +113,7 @@ function App() {
         </div>
       </div>
 
-      <div className="tabcontent" id="history" style={{overflowY: "scroll"}}>
+      <div className="tabcontent" id="history">
         {
           Object.keys(itemList).map((key, index) => (
             <HistoryItem 
