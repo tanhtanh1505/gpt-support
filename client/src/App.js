@@ -2,7 +2,12 @@ import "./App.css";
 import { ReactComponent as Submit } from "./asset/icon/submit.svg";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { trackPromise } from "react-promise-tracker";
+
 import HistoryItem from "./component/HistoryItem";
+import LoadingIndicator from "./component/LoadingIndicator"
+
+
 
 function App() {
   const queryParams = new URLSearchParams(window.location.search);
@@ -21,7 +26,7 @@ function App() {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
-    document.getElementById(tabId).style.display = "block";
+    document.getElementById(tabId).style.display = "flex";
     evt.currentTarget.className += " active";
   }
 
@@ -41,29 +46,49 @@ function App() {
   const { t, i18n } = useTranslation();
   const [query, setQuery] = useState(question);
   const [answer, setAnswer] = useState("");
+  const itemList = JSON.parse(localStorage.getItem('itemList')) || {};
 
   function querySubmit() {
-    console.log(query);
-    fetch(`https://woparadise.tech/gpt-support/question?q=${query}`).then((res) => {
-      res.json().then((data) => {
-        console.log(data);
-        setAnswer(data.answer);
-      });
-    });
+    setAnswer('');
+    trackPromise(
+      fetch(`https://woparadise.tech/gpt-support/question?q=${query}`).then((res) => {
+        res.json().then((data) => {  
+          setAnswer(data.answer);
+          itemList[query] = data.answer;
+          localStorage.setItem('itemList', JSON.stringify(itemList))
+        });
+      })
+    );
+  }
+
+  function historyItemClick(query, answer) {
+    setQuery(query);
+    setAnswer(answer);
+
+    var i, tabcontent;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    document.getElementById('lookup').style.display = "flex";
+
+    document.getElementById('tab-lookup').className += " active";
+    document.getElementById('tab-history').className = document.getElementById('tab-history').className.replace(" active", "");
   }
 
   return (
     <div className="wrapper">
       <div className="tab">
-        <button className="tablinks active" onClick={(e) => changeTab(e, "lookup")} tabid="lookup">
+        <button className="tablinks active" onClick={(e) => changeTab(e, "lookup")} id="tab-lookup">
           {t("lookup")}
         </button>
-        <button className="tablinks" onClick={(e) => changeTab(e, "history")} tabid="history">
+        <button className="tablinks" onClick={(e) => changeTab(e, "history")} id="tab-history">
           {t("history")}
         </button>
       </div>
 
-      <div className="tabcontent" id="lookup" style={{ display: "block" }}>
+      <div className="tabcontent" id="lookup" style={{ display: "flex" }}>
         <div className="inputbox">
           <div className="heading">{t("query")}:</div>
           <div className="language">
@@ -77,22 +102,28 @@ function App() {
           </div>
         </div>
         <div className="inputbox">
-          <input type="text" onChange={(e) => setQuery(e.value)} defaultValue={query} />
+          <input type="text" onChange={(e) => setQuery(e.target.value)} value={query} />
           <Submit style={{ cursor: "pointer" }} onClick={querySubmit}></Submit>
         </div>
         <div className="answer">
           <div className="heading">{t("answer")}:</div>
+          <LoadingIndicator />
           <div className="regular" style={{ marginTop: "4px" }}>
             {answer}
           </div>
         </div>
       </div>
 
-      <div className="tabcontent" id="history">
-        <HistoryItem query="bbno$" />
-        <HistoryItem query="The resignation of the shōgun led to the Boshin War..." />
-        <HistoryItem query="ChatGPT" />
-        <HistoryItem query="Alter" />
+      <div className="tabcontent" id="history" style={{overflowY: "scroll"}}>
+        {
+          Object.keys(itemList).map((key, index) => (
+            <HistoryItem 
+              query={key} 
+              key={index} 
+              onClick={() => historyItemClick(key, itemList[key])}
+            />
+          ))
+        }
       </div>
     </div>
   );
