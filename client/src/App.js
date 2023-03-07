@@ -48,7 +48,8 @@ function App() {
   const [answer, setAnswer] = useState("");
   const itemList = JSON.parse(localStorage.getItem('itemList')) || {};
 
-  function querySubmit() {
+  function querySubmit(evt) {
+    evt.preventDefault();
     setAnswer('');
     trackPromise(
       fetch(`https://woparadise.tech/gpt-support/question?q=${query}`).then((res) => {
@@ -101,10 +102,10 @@ function App() {
             </button>
           </div>
         </div>
-        <div className="inputbox">
+        <form className="inputbox" onSubmit={querySubmit}>
           <input type="text" onChange={(e) => setQuery(e.target.value)} value={query} />
-          <Submit style={{ cursor: "pointer" }} onClick={querySubmit}></Submit>
-        </div>
+          <Submit type={"submit"} style={{ cursor: "pointer" }} onClick={querySubmit}/>
+        </form>
         <div className="answer">
           <div className="heading">{t("answer")}:</div>
           <LoadingIndicator />
