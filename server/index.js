@@ -22,7 +22,7 @@ app.use("/gpt-support/question", questionRoutes);
 
 app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/*", function (req, res) {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
